@@ -378,8 +378,48 @@ function ding_user_frontend_default_page_manager_pages() {
     $pane->position = 1;
     $display->content['new-3'] = $pane;
     $display->panels['right'][1] = 'new-3';
+    $pane = new stdClass;
+    $pane->pid = 'new-4';
+    $pane->panel = 'right';
+    $pane->type = 'block';
+    $pane->subtype = 'ding_dibs-dibs-terms-of-sale';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'override_title' => 0,
+      'override_title_text' => '',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 2;
+    $display->content['new-4'] = $pane;
+    $display->panels['right'][2] = 'new-4';
+    $pane = new stdClass;
+    $pane->pid = 'new-5';
+    $pane->panel = 'right';
+    $pane->type = 'block';
+    $pane->subtype = 'ding_dibs-dibs-cards-supported';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'override_title' => 0,
+      'override_title_text' => 'Cards supported',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 3;
+    $display->content['new-5'] = $pane;
+    $display->panels['right'][3] = 'new-5';
   $display->hide_title = PANELS_TITLE_PANE;
-  $display->title_pane = 'new-3';
+  $display->title_pane = 'new-5';
   $handler->conf['display'] = $display;
   $page->default_handlers[$handler->name] = $handler;
   $pages['user_debts'] = $page;
