@@ -419,7 +419,7 @@ function ding_user_frontend_default_page_manager_pages() {
     $display->content['new-5'] = $pane;
     $display->panels['right'][3] = 'new-5';
   $display->hide_title = PANELS_TITLE_PANE;
-  $display->title_pane = 'new-5';
+  $display->title_pane = 'new-3';
   $handler->conf['display'] = $display;
   $page->default_handlers[$handler->name] = $handler;
   $pages['user_debts'] = $page;
