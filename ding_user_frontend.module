@@ -293,7 +293,7 @@ function ding_user_frontend_build_menu($path = NULL) {
           if ($item['tab_parent'] == $router_item['tab_root']) {
             $current += $menu_item_defaults;
             $current['#title'] = $item['title'];
-            $current['#href'] = $item['href'];
+            $current['#href'] = ding_user_frontend_build_uniform_menu_link($item['href']);
             $current['#weight'] = $item['weight'];
           }
 
@@ -315,7 +315,7 @@ function ding_user_frontend_build_menu($path = NULL) {
               foreach ($items as $item) {
                 $below = array() + $menu_item_defaults;
                 $below['#title'] = $item['title'];
-                $below['#href'] = $item['href'];
+                $below['#href'] = ding_user_frontend_build_uniform_menu_link($item['href']);
                 $current['#below'][] = $below;
               }
             }
@@ -329,4 +329,32 @@ function ding_user_frontend_build_menu($path = NULL) {
   }
 
   return $menu;
+}
+
+/**
+ * Build a consistent link for user/* paths.
+ *
+ * If URLs like user/1234/view are cached in e.g. varnish, then other users
+ * may be exposed to these URLs.
+ *
+ * This function normalizes the user/* paths, by replacing the uid with "me".
+ *
+ * @param  [type] $path [description]
+ * @return [type]       [description]
+ */
+function ding_user_frontend_build_uniform_menu_link($path) {
+  return preg_replace('/^user\/(.*?\/)(.*)$/', 'user/me/$2', $path);
+}
+
+/**
+ * Implemengs hook_url_inbound_alter().
+ *
+ * Re-replace the "me" in user/* paths with the proper user id.
+ */
+function ding_user_frontend_url_inbound_alter(&$path, $original_path, $path_language) {
+  if (preg_match('/^user\/me\/(.*)$/', $path, $matches)) {
+    global $user;
+    $uid = user_is_logged_in() ? $user->uid : 0;
+    $path = "user/$uid/" . $matches[1];
+  }
 }
